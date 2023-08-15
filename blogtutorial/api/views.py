@@ -2,13 +2,13 @@ from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 import openai
+import os
 from .models import Prompt
 from .serializer import PromptSerializer
 
-
-openai.organization = "org-4syK5rpvVR7nABjSceLGim9e"
-# Alpha school's dedicated API key issued on Benjamin's account
-openai.api_key = "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"
+# Set these environment variables
+openai.organization = os.getenv('OPENAI_ORG') 
+openai.api_key = os.getenv('OPENAI_API_KEY') # Alpha school's dedicated API key issued on Benjamin's account
 
 # Create your views here.
 @api_view(['GET'])
