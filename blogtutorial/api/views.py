@@ -17,6 +17,11 @@ def get_prompts(request):
     serializer = PromptSerializer(prompts, many=True)
     return Response(serializer.data)
 
+
+@api_view(['GET'])
+def test_get(request):
+    return Response("you reached the test api endpoint!")
+
 @api_view(['POST'])
 def post_message(request):
     format, style, subject = map(request.POST.get, ['format', 'style', 'subject'])

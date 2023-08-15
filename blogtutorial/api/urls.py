@@ -3,5 +3,6 @@ from . import views
 
 urlpatterns = [
     path('get/', views.get_prompts),
+    path('testget/', views.test_get)
     path('post/', views.post_message),
 ]
