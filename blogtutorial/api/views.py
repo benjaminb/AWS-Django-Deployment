@@ -24,7 +24,7 @@ def test_get(request):
 
 @api_view(['POST'])
 def post_message(request):
-    print(f"api key: {openai.api_key}")
+    print(f"openai key: {openai.api_key}\nenvirontment: {os.getenv('OPENAI_API_KEY')}")
     format, style, subject = map(request.POST.get, ['format', 'style', 'subject'])
     prompt = f"Write a {format} about {subject} in the style of {style}"
     # message = make_message(prompt)
