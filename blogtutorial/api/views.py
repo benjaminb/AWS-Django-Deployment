@@ -32,6 +32,7 @@ def hackathon_chat(request):
     if not history:
         print("hackathon_chat didn't get a chathistory object")
     print(f"History: {history}")
+    return Response("I got this far")
 
 @api_view(['POST'])
 def post_message(request):
