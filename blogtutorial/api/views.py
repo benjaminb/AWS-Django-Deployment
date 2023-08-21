@@ -23,7 +23,17 @@ def test_get(request):
     return Response("you reached the test api endpoint!")
 
 @api_view(['POST'])
+def hackathon_chat(request):
+    """API for hackathon 7 chatbot"""
+    # get the text out of the response object
+    # do what's needed to serialize/convert to messages (json.loads()?)
+    # use get_completion to get the completion, maybe use temp 0.5
+    history = request.history
+    print(f"History: {history}")
+
+@api_view(['POST'])
 def post_message(request):
+    """For hackathon 1"""
     format, style, subject = map(request.POST.get, ['format', 'style', 'subject'])
     prompt = f"Write a {format} about {subject} in the style of {style}"
     message = make_message(prompt)
