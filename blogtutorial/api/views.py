@@ -35,7 +35,10 @@ def hackathon_chat(request):
     print(f"History: {history}")
     messages = json.loads(history)
     print(f"Jsonified history:\n{messages}")
-    return Response("I got this far")
+    response = get_completion(messages=messages,
+                                model="gpt-3.5-turbo",
+                                temperature=0.5,)
+    return Response(response['choices'][0]['message']['content'])
 
 @api_view(['POST'])
 def post_message(request):
