@@ -28,7 +28,7 @@ def hackathon_chat(request):
     # get the text out of the response object
     # do what's needed to serialize/convert to messages (json.loads()?)
     # use get_completion to get the completion, maybe use temp 0.5
-    history = request.POST.get(history, "")
+    history = request.POST.get("history", "")
     if not history:
         print("hackathon_chat didn't get a chathistory object")
     print(f"History: {history}")
