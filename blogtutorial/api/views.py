@@ -46,6 +46,8 @@ def hackathon_chat(request):
     if answer[-1] == '"':
         answer = answer[:-1]
     print(f"Answer after removing boundary quotes: {answer}")
+    dump = json.dumps(answer)
+    print(f"Dumped answer: {dump}")
     return Response(json.dumps(answer))
 
 @api_view(['POST'])
