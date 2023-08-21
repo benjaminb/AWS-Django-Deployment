@@ -39,8 +39,8 @@ def hackathon_chat(request):
                                 model="gpt-3.5-turbo",
                                 temperature=0.5,)
     answer_obj = {"response": response['choices'][0]['message']['content']}
-    print(f"Unprocessed answer: {answer}")
-    print(f"Processed answer: {json.dumps(answer)}")
+    print(f"Unprocessed answer: {answer_obj}")
+    print(f"Processed answer: {json.dumps(answer_obj)}")
     # Remove unwanted quotes
     # if answer[0] == '"':
     #     answer = answer[1:]
@@ -49,7 +49,7 @@ def hackathon_chat(request):
     # print(f"Answer after removing boundary quotes: {answer}")
     # dump = json.dumps(answer)
     # print(f"Dumped answer: {dump}")
-    return Response(json.dumps(answer))
+    return Response(json.dumps(answer_obj))
 
 @api_view(['POST'])
 def post_message(request):
