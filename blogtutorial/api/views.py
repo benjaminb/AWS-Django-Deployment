@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+import json
 import openai
 import os
 from .models import Prompt
@@ -32,6 +33,8 @@ def hackathon_chat(request):
     if not history:
         print("hackathon_chat didn't get a chathistory object")
     print(f"History: {history}")
+    messages = json.loads(history)
+    print(f"Jsonified history:\n{messages}")
     return Response("I got this far")
 
 @api_view(['POST'])
