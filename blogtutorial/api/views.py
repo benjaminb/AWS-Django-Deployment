@@ -31,14 +31,16 @@ def hackathon_chat(request):
     # use get_completion to get the completion, maybe use temp 0.5
     history = request.POST.get("history", "")
     if not history:
-        print("hackathon_chat didn't get a chathistory object")
+        print("hackathon_chat didn't get a chat history object")
     print(f"History: {history}")
     messages = json.loads(history)
     print(f"Jsonified history:\n{messages}")
     response = get_completion(messages=messages,
                                 model="gpt-3.5-turbo",
                                 temperature=0.5,)
-    return Response(response['choices'][0]['message']['content'])
+    serialized_answer = json.loads(response['choices'][0]['message']['content'])
+    print(f"Serialized answer: {serialized_answer}")
+    return Response(serialized_answer)
 
 @api_view(['POST'])
 def post_message(request):
