@@ -38,7 +38,7 @@ def hackathon_chat(request):
     response = get_completion(messages=messages,
                                 model="gpt-3.5-turbo",
                                 temperature=0.5,)
-    serialized_answer = json.loads(response['choices'][0]['message']['content'])
+    serialized_answer = json.dumps(response['choices'][0]['message']['content'])
     print(f"Serialized answer: {serialized_answer}")
     return Response(serialized_answer)
 
