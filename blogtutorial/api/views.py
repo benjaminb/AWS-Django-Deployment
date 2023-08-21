@@ -49,7 +49,7 @@ def hackathon_chat(request):
     # print(f"Answer after removing boundary quotes: {answer}")
     # dump = json.dumps(answer)
     # print(f"Dumped answer: {dump}")
-    return Response(json.dumps(answer_obj))
+    return Response(response['choices'][0]['message']['content'])
 
 @api_view(['POST'])
 def post_message(request):
