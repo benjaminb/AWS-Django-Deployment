@@ -49,6 +49,15 @@ def post_message(request):
     response = get_completion(message)
     return Response(response['choices'][0]['message']['content'])
 
+@api_view(['POST'])
+def hackathon_1_gpt_query(request):
+    """For hackathon 1"""
+    format, style, subject = map(request.POST.get, ['format', 'style', 'subject'])
+    prompt = f"Write a {format} about {subject} in the style of {style}"
+    message = make_message(prompt)
+    response = get_completion(message, use_streaming=True)
+    return Response(response['choices'][0]['message']['content'])
+
 # Helper functions here
 def make_message(prompt):
     return [{"role": "user", "content": prompt}]
@@ -60,6 +69,7 @@ def get_completion(
     top_p=1,
     freq_penalty=0,
     pres_penalty=0,
+    use_streaming=False
 ):
     return openai.ChatCompletion.create(
         model=model,
@@ -68,5 +78,5 @@ def get_completion(
         top_p=top_p,
         frequency_penalty=freq_penalty,
         presence_penalty=pres_penalty,
-        stream=False,
+        stream=use_streaming,
     )
