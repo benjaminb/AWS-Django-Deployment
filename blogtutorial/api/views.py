@@ -28,8 +28,8 @@ class OpenAIStreamView(APIView):
         # Make streaming request 
         response_stream = openai.ChatCompletion.create(
             model='gpt-3.5-turbo',
-            messages=messages,
-            temperature=temperature,
+            messages=message,
+            temperature=1.0,
             top_p=1,
             frequency_penalty=0,
             presence_penalty=0,
