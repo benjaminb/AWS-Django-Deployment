@@ -6,5 +6,5 @@ urlpatterns = [
     path('testget/', views.test_get),
     path('post/', views.post_message),
     path('hackathon-chat/', views.hackathon_chat),
-    path('hackathon-1-gpt/', views.hackathon_1_gpt_query)
+    path('hackathon-1-stream/', views.OpenAIStreamView.as_view(), name='hackathon-1-stream'),
 ]

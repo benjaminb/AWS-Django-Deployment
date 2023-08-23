@@ -7,9 +7,37 @@ import os
 from .models import Prompt
 from .serializer import PromptSerializer
 
+from django.http import StreamingHttpResponse
+from rest_framework.views import APIView
+
 # Set these environment variables
 openai.organization = os.getenv('OPENAI_ORG') 
 openai.api_key = os.getenv('OPENAI_API_KEY') # Alpha school's dedicated API key issued on Benjamin's account
+
+class OpenAIStreamView(APIView):
+    """
+    Streaming API for hackathon 1
+    """
+    def post(self, request, *args, **kwargs):
+
+        # Format message for OpenAI API 
+        format, style, subject = map(request.POST.get, ['format', 'style', 'subject'])
+        prompt = f"Write a {format} about {subject} in the style of {style}"
+        message = make_message(prompt)
+
+        # Make streaming request 
+        response_stream = openai.ChatCompletion.create(
+            model='gpt-3.5-turbo',
+            messages=messages,
+            temperature=temperature,
+            top_p=1,
+            frequency_penalty=0,
+            presence_penalty=0,
+            stream=True,
+        )
+
+        return StreamingHttpResponse(response_stream)
+
 
 # Create your views here.
 @api_view(['GET'])
@@ -46,14 +74,6 @@ def post_message(request):
     response = get_completion(message)
     return Response(response['choices'][0]['message']['content'])
 
-@api_view(['POST'])
-def hackathon_1_gpt_query(request):
-    """For hackathon 1"""
-    format, style, subject = map(request.POST.get, ['format', 'style', 'subject'])
-    prompt = f"Write a {format} about {subject} in the style of {style}"
-    message = make_message(prompt)
-    response = get_completion(message)
-    return Response(response['choices'][0]['message']['content'])
 
 # Helper functions here
 def make_message(prompt):
