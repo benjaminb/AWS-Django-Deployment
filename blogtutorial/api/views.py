@@ -52,7 +52,7 @@ def hackathon_1_gpt_query(request):
     format, style, subject = map(request.POST.get, ['format', 'style', 'subject'])
     prompt = f"Write a {format} about {subject} in the style of {style}"
     message = make_message(prompt)
-    response = get_completion(message, use_streaming=True)
+    response = get_completion(message)
     return Response(response['choices'][0]['message']['content'])
 
 # Helper functions here
