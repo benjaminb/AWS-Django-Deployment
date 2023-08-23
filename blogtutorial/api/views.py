@@ -26,9 +26,6 @@ def test_get(request):
 @api_view(['POST'])
 def hackathon_chat(request):
     """API for hackathon 7 chatbot"""
-    # get the text out of the response object
-    # do what's needed to serialize/convert to messages (json.loads()?)
-    # use get_completion to get the completion, maybe use temp 0.5
     history = request.POST.get("history", "")
     if not history:
         print("hackathon_chat didn't get a chat history object")
